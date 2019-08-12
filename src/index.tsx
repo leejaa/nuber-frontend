@@ -5,12 +5,14 @@ import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
+import { withClientState } from "apollo-link-state";
 import { ApolloLink, split, Observable } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 import { WebSocketLink } from "apollo-link-ws";
 import App from "./Components/App";
 import { BACKEND_URL, SOCKET_URL } from "./env";
-
+import { resolvers, defaults } from "./LocalState";
+import "./global-styles";
 
 
   const httpLink = new HttpLink({
@@ -54,8 +56,11 @@ import { BACKEND_URL, SOCKET_URL } from "./env";
       };
     })
   );
+
+  const cache = new InMemoryCache();
   
   const client = new ApolloClient({
+    ssrMode: true,
     link: ApolloLink.from([
       onError(({ graphQLErrors, networkError }) => {
         if (graphQLErrors){
@@ -68,6 +73,11 @@ import { BACKEND_URL, SOCKET_URL } from "./env";
         if (networkError){
           console.log(`[Network error]: ${networkError}`);
         }
+      }),
+      withClientState({
+        cache,
+        resolvers: resolvers as any,
+        defaults: defaults as any,
       }),
       requestLink,
       split(
@@ -82,12 +92,12 @@ import { BACKEND_URL, SOCKET_URL } from "./env";
         wsLink
       )
     ]),
-    cache: new InMemoryCache()
+    cache: cache as any
   });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider>,
-  document.getElementById("root")
+  document.getElementById("root") as HTMLElement
 );
