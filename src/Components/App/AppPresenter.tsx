@@ -5,6 +5,7 @@ import Login from "../../Routes/Login";
 import Home from "../../Routes/Home";
 import PhoneLogin from "../../Routes/PhoneLogin";
 import VerifyPhone from "../../Routes/VerifyPhone";
+import EditAccount from "../../Routes/EditAccount";
 
 interface IProps {
     isLoggedIn: boolean;
@@ -27,6 +28,7 @@ interface IProps {
   const LoggedInRoutes: React.SFC = () => (
     <Switch>
       <Route path={"/"} exact={true} component={Home}/>
+      <Route path={"/edit-account"} exact={true} component={EditAccount}/>
     </Switch>
   );
   

@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import HomePresenter from "./HomePresenter";
 
 export default ({history}) => {
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+
+        setIsMenuOpen(!isMenuOpen);
+    }
+
     return (
         <div>
             <HomePresenter
-               toggleMenu = {() => ""}
-               loading = {false}
-               mapRef = {React.createRef()}
+                isMenuOpen={isMenuOpen}
+                toggleMenu={toggleMenu}
             />
         </div>
     );

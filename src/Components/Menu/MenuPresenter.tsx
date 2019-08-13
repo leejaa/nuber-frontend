@@ -2,38 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "../../typed-components";
 
-export interface UserProfileGetMyProfileUser {
-    __typename: "User";
-    id: number;
-    profilePhoto: string | null;
-    firstName: string;
-    lastName: string;
-    email: string | null;
-    fullName: string | null;
-    isDriving: boolean;
-  }
-  
-export interface UserProfileGetMyProfile {
-__typename: "GetMyProfileResponse";
-ok: boolean;
-error: string | null;
-user: UserProfileGetMyProfileUser | null;
-}
-  
-export interface UserProfile {
-GetMyProfile: UserProfileGetMyProfile;
-}
-
-export interface ToggleDrivingToggleDrivingMode {
-    __typename: "ToggleDrivingModeResponse";
-    ok: boolean;
-    error: string | null;
-  }
-  
-export interface ToggleDriving {
-ToggleDrivingMode: ToggleDrivingToggleDrivingMode;
-}
-
 const Container = styled.div`
   height: 100%;
 `;
@@ -96,7 +64,8 @@ interface IToggleProps {
 
 const ToggleDriving = styled<IToggleProps, any>("button")`
   -webkit-appearance: none;
-  background-color: #1abc9c;
+  background-color: ${props =>
+    props.isDriving ? props.theme.yellowColor : props.theme.greenColor};
   width: 100%;
   color: white;
   font-size: 18px;
@@ -106,43 +75,47 @@ const ToggleDriving = styled<IToggleProps, any>("button")`
 `;
 
 interface IProps {
-//   data?: userProfile;
+   data: any;
    loading: boolean;
-//   toggleDrivingFn: MutationFn<toggleDriving>;
+   toggleDrivingFn: any;
 }
 
 const MenuPresenter: React.SFC<IProps> = ({
-//   data: { GetMyProfile: { user = null } = {} } = {},
+  data: { GetMyProfile: { user = null } = {} } = {},
    loading,
-//   toggleDrivingFn
-}) => (
-  <Container>
-    {/* {!loading &&
-      user &&
-      user.fullName && ( */}
-        <React.Fragment>
-          <Header>
-            <Grid>
-              <Link to={"/edit-account"}>
-                <Image
-                  src={
-                    "https://lh3.googleusercontent.com/-CTwXMuZRaWw/AAAAAAAAAAI/AAAAAAAAAUg/8T5nFuIdnHE/photo.jpg"
-                  }
-                />
-              </Link>
-              <Text>
-                <Name>풀네임</Name>
-                <Rating>4.5</Rating>
-              </Text>
-            </Grid>
-          </Header>
-          <SLink to="/trips">Your Trips</SLink>
-          <SLink to="/settings">Settings</SLink>
-          <ToggleDriving onClick={()=>""} isDriving={false}>
-            {false ? "Stop driving" : "Start driving"}
-          </ToggleDriving>
-        </React.Fragment>
-  </Container>
-);
+   toggleDrivingFn
+}) => {
+
+  return (
+    <Container>
+      {!loading &&
+        user &&
+          <React.Fragment>
+            <Header>
+              <Grid>
+                <Link to={"/edit-account"}>
+                  <Image
+                    src={
+                      user.profilePhoto ||
+                      "http://mblogthumb2.phinf.naver.net/20150427_261/ninevincent_1430122791768m7oO1_JPEG/kakao_1.jpg?type=w2"
+                    }
+                  />
+                </Link>
+                <Text>
+                  <Name>{user.phoneNumber}</Name>
+                  <Rating>4.5</Rating>
+                </Text>
+              </Grid>
+            </Header>
+            <SLink to="/trips">Your Trips</SLink>
+            <SLink to="/settings">Settings</SLink>
+            <ToggleDriving onClick={toggleDrivingFn} isDriving={user.isDriving}>
+              {user.isDriving ? "Stop driving" : "Start driving"}
+            </ToggleDriving>
+          </React.Fragment>
+          }
+    </Container>
+  );
+}
 
 export default MenuPresenter;

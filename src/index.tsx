@@ -22,15 +22,18 @@ import "./global-styles";
   const wsLink = new WebSocketLink({
     uri: SOCKET_URL,
     options: {
-      reconnect: true
+      reconnect: false
     }
   });
 
   const request = async (operation) => {
-    const token = await localStorage.getItem('jwt');
+    const token = await localStorage.getItem('token');
+
+    console.log(`token : ${token}`);
+
     operation.setContext({
       headers: {
-        authorization: `Bearer ${token}`
+        authorization: `bearer ${token}`
       }
     });
   };
@@ -66,7 +69,7 @@ import "./global-styles";
         if (graphQLErrors){
           graphQLErrors.map(({ message, locations, path }) =>
             console.log(
-              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+              `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(locations)}, Path: ${path}`
             )
           );
         }
@@ -88,8 +91,8 @@ import "./global-styles";
             definition.operation === "subscription"
           );
         },
-        httpLink,
-        wsLink
+        wsLink,
+        httpLink
       )
     ]),
     cache: cache as any

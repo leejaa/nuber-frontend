@@ -4,18 +4,7 @@ import { useMutation } from "react-apollo-hooks";
 import { toast } from "react-toastify";
 import VerifyPresenter from "./VerifyPhonePresenter";
 import { LOG_USER_IN } from "src/SharedQueries";
-
-
-interface VerifyPhoneData {
-    ok: boolean;
-    error: string | null;
-    token: string | null;
-  }
-  
-interface VerifyPhoneVar {
-    phoneNumber: string;
-    key: string;
-  }
+import { VerifyPhoneData, VerifyPhoneVar } from "src/types/api";
 
 export const VERIFY_PHONE = gql`
   mutation verifyPhone($key: String!, $phoneNumber: String!) {

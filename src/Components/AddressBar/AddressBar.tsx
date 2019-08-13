@@ -32,7 +32,7 @@ const AddressBar: React.SFC<IProps> = ({ value, onBlur, onChange, name }) => (
     onBlur={onBlur}
     onSubmit={onBlur}
     onChange={onChange}
-    placeholder={"Type address"}
+    placeholder={"목적지를 입력해주세요"}
     name={name}
   />
 );

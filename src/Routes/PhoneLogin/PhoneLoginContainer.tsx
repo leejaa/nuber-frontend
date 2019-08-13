@@ -3,16 +3,8 @@ import { gql } from "apollo-boost";
 import { toast } from "react-toastify";
 import PhoneLoginPresenter from "./PhoneLoginPresenter";
 import { useMutation } from "react-apollo-hooks";
+import { StartPhoneVerificationData, StartPhoneVerificationVar } from "src/types/api";
 
-
-interface StartPhoneVerificationData {
-    ok: boolean;
-    error: string;
-  }
-  
-interface StartPhoneVerificationVar {
-    phoneNumber: string;
-  }
 
 export const PHONE_SIGN_IN = gql`
   mutation startPhoneVerification($phoneNumber: String!) {

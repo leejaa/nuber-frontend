@@ -61,7 +61,7 @@ interface IProps {
     ) => void;
     onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
     loading: boolean;
-  }
+}
 
 const PhoneLoginPresenter : React.SFC<IProps> = ({
     countryCode,
@@ -69,7 +69,7 @@ const PhoneLoginPresenter : React.SFC<IProps> = ({
     onInputChange,
     onSubmit,
     loading
-  }) => {
+}) => {
 
     return (
         <Container>
