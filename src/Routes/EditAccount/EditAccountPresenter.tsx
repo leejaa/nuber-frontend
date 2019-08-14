@@ -1,5 +1,6 @@
 import React from "react";
 import Helmet from "react-helmet";
+import { Link } from "react-router-dom";
 import Button from "../../Components/Button";
 import Form from "../../Components/Form";
 import Header from "../../Components/Header";
@@ -15,6 +16,12 @@ const ExtendedForm = styled(Form)`
 
 const ExtendedInput = styled(Input)`
   margin-bottom: 30px;
+`;
+
+const SLink = styled(Link)`
+  display: block;
+  text-decoration: underline;
+  margin: 20px 0px;
 `;
 
 
@@ -48,9 +55,9 @@ const EditAccountPresenter : React.SFC<IProps> = ({
             <Header title={"회원정보 수정"} backTo={"/"} />
             <ExtendedForm submitFn={onSubmit}>
             <PhotoInput
-                uploading={false}
-                fileUrl={""}
-                onChange={()=>""}
+                uploading={uploading}
+                fileUrl={profilePhoto}
+                onChange={onInputChange}
             />
             <ExtendedInput
                 onChange={onInputChange}
@@ -73,6 +80,7 @@ const EditAccountPresenter : React.SFC<IProps> = ({
                 placeholder={"이메일주소"}
                 name={"email"}
             />
+            <SLink to={"/places"}>장소추가</SLink>
             <Button onClick={null} value={loading || uploading ? "Loading" : "Update"} />
             </ExtendedForm>
         </Container>

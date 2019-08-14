@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { gql } from "apollo-boost";
 import EditAccountPresenter from "./EditAccountPresenter";
 import { useQuery, useMutation } from "react-apollo-hooks";
+import axios from "axios";
 import { USER_PROFILE } from "src/SharedQueries";
 import {
     UpdateProfile,
@@ -71,10 +72,30 @@ export default ({history}) => {
         setUploading(false);
     }
 
-    const onInputChange = event => {
+    const onInputChange = async event => {
         const {
-            target: { name, value }
+            target: { name, value, files }
           } = event;
+
+        if(files){
+            setUploading(true);
+            const formData = new FormData();
+            formData.append("file", files[0]);
+            formData.append("api_key", "518252783565389");
+            formData.append("upload_preset", "nuber-20190814");
+            formData.append("timestamp", String(Date.now() / 1000));
+            const {
+            data: { secure_url }
+            } = await axios.post(
+                "https://api.cloudinary.com/v1_1/dbqgymmrx/image/upload",
+                formData
+            );
+            if (secure_url) {
+                setProfilePhoto(secure_url);
+                setUploading(false);
+            }
+        }
+
 
         switch (name) {
             case 'firstName':
