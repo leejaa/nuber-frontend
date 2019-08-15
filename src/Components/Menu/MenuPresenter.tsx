@@ -107,7 +107,6 @@ const MenuPresenter: React.SFC<IProps> = ({
                 </Text>
               </Grid>
             </Header>
-            <SLink to="/trips">Your Trips</SLink>
             <SLink to="/edit-account">회원정보 수정</SLink>
             <ToggleDriving onClick={toggleDrivingFn} isDriving={user.isDriving}>
               {user.isDriving ? "Stop driving" : "Start driving"}

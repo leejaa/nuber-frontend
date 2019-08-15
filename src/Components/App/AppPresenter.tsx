@@ -9,6 +9,8 @@ import EditAccount from "../../Routes/EditAccount";
 import Places from "../../Routes/Places";
 import AddPlace from "../../Routes/AddPlace";
 import FindAddress from "../../Routes/FindAddress";
+import Ride from "../../Routes/Ride";
+import Chat from "../../Routes/Chat";
 
 interface IProps {
     isLoggedIn: boolean;
@@ -35,6 +37,8 @@ interface IProps {
       <Route path={"/places"} exact={true} component={Places}/>
       <Route path={"/add-place"} exact={true} component={AddPlace}/>
       <Route path={"/find-address"} exact={true} component={FindAddress}/>
+      <Route path={"/ride"} exact={true} component={Ride} />
+      <Route path={"/chat"} exact={true} component={Chat} />
     </Switch>
   );
   

@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "../../typed-components";
 import Button from "../Button";
+import { useQuery } from "react-apollo-hooks";
+import { USER_PROFILE } from "src/SharedQueries";
 
 interface IProps {
   pickUpAddress: string;
   dropOffAddress: string;
   price: number;
   distance: string;
-  passengerName: string;
-  passengerPhoto: string;
   acceptRideFn: any;
-  id: number;
 }
 
 const Container = styled.div`
@@ -42,7 +41,9 @@ const Data = styled.span`
 
 const Img = styled.img`
   border-radius: 50%;
-  margin-right: 20px;
+  margin-right: 5px;
+  height: 60px;
+  width: 60px;
 `;
 
 const Passenger = styled.div`
@@ -56,32 +57,34 @@ const RidePopUp: React.SFC<IProps> = ({
   dropOffAddress,
   price,
   distance,
-  passengerName,
-  passengerPhoto,
-  acceptRideFn,
-  id
-}) => (
-  <Container>
-    <Title>Pick Up Address</Title>
-    <Data>{pickUpAddress}</Data>
-    <Title>Drop Off Address</Title>
-    <Data>{dropOffAddress}</Data>
-    <Title>Price</Title>
-    <Data>{price}</Data>
-    <Title>Distance</Title>
-    <Data>{distance}</Data>
-    <Title>Distance</Title>
-    <Data>{distance}</Data>
-    <Title>Passenger:</Title>
-    <Passenger>
-      <Img src={passengerPhoto} />
-      <Data>{passengerName}</Data>
-    </Passenger>
-    <Button
-      onClick={() => acceptRideFn({ variables: { rideId: id } })}
-      value={"Accept Ride"}
-    />
-  </Container>
-);
+  acceptRideFn
+}) => {
+
+  const {data, loading} = useQuery(USER_PROFILE);
+
+  console.log(`data : ${JSON.stringify(data)}`);
+
+  return (
+      <Container>
+        <Title>출발지</Title>
+        <Data>{pickUpAddress}</Data>
+        <Title>도착지</Title>
+        <Data>{dropOffAddress}</Data>
+        <Title>가격</Title>
+        <Data>{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</Data>
+        <Title>거리</Title>
+        <Data>{distance}</Data>
+        <Title>승객:</Title>
+        <Passenger>
+          <Img src={loading ? "" : data.GetMyProfile.user.profilePhoto} />
+          <Data>{loading ? "로딩중..." : data.GetMyProfile.user.fullName}</Data>
+        </Passenger>
+        <Button
+          onClick={() => acceptRideFn()}
+          value={"택시기사 요청"}
+        />
+      </Container>
+  );
+}
 
 export default RidePopUp;
