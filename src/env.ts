@@ -1,3 +1,3 @@
-export const BACKEND_URL = "http://localhost:4000";
-export const SOCKET_URL = "ws://localhost:4000";
+export const BACKEND_URL = "https://nuber-jahun.herokuapp.com";
+export const SOCKET_URL = "ws://https://nuber-jahun.herokuapp.com";
 export const LOG = true;
