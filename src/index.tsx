@@ -8,22 +8,14 @@ import { onError } from "apollo-link-error";
 import { withClientState } from "apollo-link-state";
 import { ApolloLink, split, Observable } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
-import { WebSocketLink } from "apollo-link-ws";
 import App from "./Components/App";
-import { BACKEND_URL, SOCKET_URL } from "./env";
+import { BACKEND_URL} from "./env";
 import { resolvers, defaults } from "./LocalState";
 import "./global-styles";
 
 
   const httpLink = new HttpLink({
     uri: BACKEND_URL
-  });
-
-  const wsLink = new WebSocketLink({
-    uri: SOCKET_URL,
-    options: {
-      reconnect: false
-    }
   });
 
   const request = async (operation) => {
