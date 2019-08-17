@@ -91,7 +91,6 @@ import "./global-styles";
             definition.operation === "subscription"
           );
         },
-        wsLink,
         httpLink
       )
     ]),
