@@ -52,5 +52,6 @@
     "@types/react-sidebar": "^3.0.0",
     "gh-pages": "^1.2.0",
     "typescript": "^3.0.1"
-  }
+  },
+  "homepage": "https://leejaa.github.io/nuber-frontend/"
 }
