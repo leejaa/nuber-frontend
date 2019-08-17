@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {  Route, Switch, HashRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "../../Routes/Login";
 import Home from "../../Routes/Home";
 import PhoneLogin from "../../Routes/PhoneLogin";
@@ -17,9 +17,9 @@ interface IProps {
 }
   
   const AppPresenter: React.SFC<IProps> = ({ isLoggedIn }) => (
-    <HashRouter>
+    <BrowserRouter>
       {isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />}
-    </HashRouter>
+    </BrowserRouter>
   );
   
   const LoggedOutRoutes: React.SFC = () => (
