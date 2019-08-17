@@ -24,7 +24,7 @@ interface IProps {
   
   const LoggedOutRoutes: React.SFC = () => (
     <Switch>
-      <Route path={"/"} exact={true} component={Login}/>
+      <Route path={"https://sleepy-raman-5294b6.netlify.com/"} exact={true} component={Login}/>
       <Route path={"/phone-login"} component={PhoneLogin} />
       <Route path={"/verify-phone"} component={VerifyPhone} />
     </Switch>
@@ -32,7 +32,7 @@ interface IProps {
   
   const LoggedInRoutes: React.SFC = () => (
     <Switch>
-      <Route path={"/"} exact={true} component={Home}/>
+      <Route path={"https://sleepy-raman-5294b6.netlify.com/"} exact={true} component={Home}/>
       <Route path={"/edit-account"} exact={true} component={EditAccount}/>
       <Route path={"/places"} exact={true} component={Places}/>
       <Route path={"/add-place"} exact={true} component={AddPlace}/>
