@@ -22,6 +22,14 @@ const SLink = styled(Link)`
   font-weight: 400;
 `;
 
+const SLink2 = styled.div`
+  font-size: 22px;
+  display: block;
+  margin-left: 15px;
+  margin-bottom: 25px;
+  font-weight: 400;
+`;
+
 const Image = styled.img`
   height: 80px;
   width: 80px;
@@ -78,12 +86,14 @@ interface IProps {
    data: any;
    loading: boolean;
    toggleDrivingFn: any;
+   logout: any;
 }
 
 const MenuPresenter: React.SFC<IProps> = ({
   data: { GetMyProfile: { user = null } = {} } = {},
    loading,
-   toggleDrivingFn
+   toggleDrivingFn,
+   logout
 }) => {
 
   return (
@@ -108,6 +118,7 @@ const MenuPresenter: React.SFC<IProps> = ({
               </Grid>
             </Header>
             <SLink to="/edit-account">회원정보 수정</SLink>
+            <SLink2 onClick={logout}>로그아웃</SLink2>
             <ToggleDriving onClick={toggleDrivingFn} isDriving={user.isDriving}>
               {user.isDriving ? "Stop driving" : "Start driving"}
             </ToggleDriving>

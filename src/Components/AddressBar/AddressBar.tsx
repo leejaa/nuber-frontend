@@ -24,9 +24,10 @@ interface IProps {
   onBlur: any;
   name: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const AddressBar: React.SFC<IProps> = ({ value, onBlur, onChange, name }) => (
+const AddressBar: React.SFC<IProps> = ({ value, onBlur, onChange, name, onKeyPress }) => (
   <Container
     value={value}
     onBlur={onBlur}
@@ -34,6 +35,7 @@ const AddressBar: React.SFC<IProps> = ({ value, onBlur, onChange, name }) => (
     onChange={onChange}
     placeholder={"목적지를 입력해주세요"}
     name={name}
+    onKeyPress={onKeyPress}
   />
 );
 

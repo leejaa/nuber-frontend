@@ -64,6 +64,7 @@ class FindAddressPresenter extends React.Component<IProps> {
           onChange={onInputChange}
           name={"address"}
           value={address}
+          onKeyPress={()=>""}
         />
         <ExtendedButton value={"위치를 선택해주세요"} onClick={onPickPlace} />
         <Center>📍</Center>

@@ -18,6 +18,7 @@ interface IState {
   isMenuOpen: boolean;
   ride: boolean;
   priceYn: boolean;
+  loading: boolean;
 }
 
 interface IProps extends RouteComponentProps<any> {
@@ -36,7 +37,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     address: "",
     lat: 0,
     lng: 0,
-    toAddress: "원하시는 목적지를 입력후 목적지선택 버튼을 눌러주세요.",
+    toAddress: "",
     toLat: 0,
     toLng: 0,
     distance: "",
@@ -45,6 +46,7 @@ class HomeContainer extends React.Component<IProps, IState> {
     isMenuOpen: false,
     ride: false,
     priceYn: true,
+    loading: false
   };
   constructor(props) {
     super(props);
@@ -58,13 +60,14 @@ class HomeContainer extends React.Component<IProps, IState> {
     );
   }
   public render() {
-    const { toAddress, price, isMenuOpen, ride, address, distance, priceYn } = this.state;
+    const { toAddress, price, isMenuOpen, ride, address, distance, priceYn, loading } = this.state;
 
     return (
       <HomePresenter
         mapRef={this.mapRef}
         toAddress={toAddress}
         onInputChange={this.onInputChange}
+        onKeyPress={this.onKeyPress}
         onInputBlur={this.onInputBlur}
         price={price}
         toggleMenu={this.toggleMenu}
@@ -75,6 +78,7 @@ class HomeContainer extends React.Component<IProps, IState> {
         requestRideFn={this.requestRideFn}
         acceptRideFn={this.acceptRideFn}
         priceYn={priceYn}
+        loading={loading}
       />
     );
   }
@@ -137,6 +141,8 @@ class HomeContainer extends React.Component<IProps, IState> {
   };
   public onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
+    
+    
     const {
       target: { name, value }
     } = event;
@@ -145,8 +151,21 @@ class HomeContainer extends React.Component<IProps, IState> {
     } as any);
   };
 
+  public onKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+
+    if(event.charCode === 13){
+      this.onInputBlur();
+    }
+  };
+
   public onInputBlur = async () => {
-    
+
+    this.setState(state => {
+      return {
+        loading: true
+      };
+    });
+
     const maps = google.maps;
     const { toAddress } = this.state;
     const result = await geoCode(toAddress);
@@ -177,6 +196,13 @@ class HomeContainer extends React.Component<IProps, IState> {
       );
       // this.map.panTo({ lat, lng });
     }
+
+    this.setState(state => {
+      return {
+        loading: false
+      };
+    });
+
   };
 
   public createPath = () => {

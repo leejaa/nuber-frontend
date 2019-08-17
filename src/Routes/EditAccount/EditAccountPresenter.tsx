@@ -81,7 +81,7 @@ const EditAccountPresenter : React.SFC<IProps> = ({
                 name={"email"}
             />
             <SLink to={"/places"}>장소추가</SLink>
-            <Button onClick={null} value={loading || uploading ? "Loading" : "Update"} />
+            <Button onClick={null} value={loading || uploading ? "로딩중" : "회원정보수정"} />
             </ExtendedForm>
         </Container>
     );

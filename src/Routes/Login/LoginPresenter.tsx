@@ -69,17 +69,17 @@ interface IProps extends RouteComponentProps<any> {}
 const OutHomePresenter: React.SFC<IProps> = () => (
   <Container>
     <Helmet>
-      <title>Login | Nuber</title>
+      <title>우버 로그인</title>
     </Helmet>
     <Header>
       <Logo>
-        <Title>Nuber</Title>
+        <Title>우버</Title>
       </Logo>
     </Header>
     <Footer>
       <Link to={"/phone-login"}>
         <PhoneLogin>
-          <Subtitle>우버로 이동</Subtitle>
+          <Subtitle>우버 로그인</Subtitle>
           <FakeInput>
             🇰🇷 +82 <Grey>휴대폰번호를 입력해주세요</Grey>
           </FakeInput>

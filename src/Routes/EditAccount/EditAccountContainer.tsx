@@ -8,6 +8,7 @@ import {
     UpdateProfile,
     UpdateProfileVariables,
   } from "../../types/api";
+import { toast } from "react-toastify";
 
 export const UPDATE_PROFILE = gql`
   mutation updateProfile(
@@ -70,6 +71,9 @@ export default ({history}) => {
         });
 
         setUploading(false);
+
+        toast.success("정보가 수정되었습니다.");
+
     }
 
     const onInputChange = async event => {

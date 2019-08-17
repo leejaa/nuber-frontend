@@ -51,6 +51,7 @@ interface IProps {
   isMenuOpen: boolean;
   priceYn: boolean;
   ride: boolean;
+  loading: boolean;
   toggleMenu: () => void;
   // loading: boolean;
   toAddress: string;
@@ -61,6 +62,7 @@ interface IProps {
   // data?: any;
    onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
    onInputBlur: (event: React.ChangeEvent<HTMLInputElement>) => void;
+   onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void;
    requestRideFn?: any;
    acceptRideFn?: any;
   // nearbyRide?: any;
@@ -70,20 +72,18 @@ const HomePresenter: React.SFC<IProps> = ({
   mapRef,
   isMenuOpen,
   toggleMenu,
-  // loading,
    toAddress,
    address,
    onInputChange,
    onInputBlur,
-  // onAddressSubmit,
   price,
   priceYn,
   ride,
   distance,
-  // data: { GetMyProfile: { user = null } = {} } = {},
-  // nearbyRide: { GetNearbyRide: { ride = null } = {} } = {},
+  loading,
    requestRideFn,
-   acceptRideFn
+   acceptRideFn,
+   onKeyPress
 }) => (
   <Container>
     <Helmet>
@@ -109,11 +109,12 @@ const HomePresenter: React.SFC<IProps> = ({
               onChange={onInputChange}
               value={toAddress}
               onBlur={onInputBlur}
+              onKeyPress={onKeyPress}
             />
             <ExtendedButton
               onClick={onInputBlur}
               disabled={false}
-              value={"목적지 선택"}
+              value={loading ? "장소를 검색중입니다..." : "목적지 검색"}
             />
           </React.Fragment>
 
@@ -122,6 +123,7 @@ const HomePresenter: React.SFC<IProps> = ({
               onClick={requestRideFn}
               disabled={toAddress === ""}
               value={`요청 (${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원)`}
+
             />
           )}
 

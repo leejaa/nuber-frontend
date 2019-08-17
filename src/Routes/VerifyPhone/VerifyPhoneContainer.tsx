@@ -61,7 +61,7 @@ export default ({history}) => {
               });
             }
             toast.success("인증에 성공하였습니다.");
-            history.push("/");
+            history.push("/edit-account");
           } else {
             toast.error(CompletePhoneVerification.error);
           }
